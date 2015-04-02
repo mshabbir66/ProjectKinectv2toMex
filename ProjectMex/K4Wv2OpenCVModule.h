@@ -12,29 +12,6 @@
 #include "Kinect.Face.h"
 
 
-//#ifdef KINECTTWO_EXPORTS
-//#define KINECTTWO_API __declspec(dllexport)
-//#else
-//#define KINECTTWO_API __declspec(dllimport)
-//#endif
-
-
-///*
-//#ifdef _DEBUG
-//#pragma comment( lib, "opencv_core2410d.lib" )
-//#pragma comment( lib, "opencv_highgui2410d.lib" )
-//#pragma comment( lib, "opencv_imgproc2410d.lib" )
-//#else
-//#pragma comment( lib, "opencv_core2410.lib" )
-//#pragma comment( lib, "opencv_highgui2410.lib" )
-//#pragma comment( lib, "opencv_imgproc2410.lib" )
-//#endif
-//
-//
-//#pragma comment( lib, "Kinect20.lib" )
-//#pragma comment( lib, "Kinect20.Face.lib" )
-
-
 // Namespaces
 using namespace std;
 using namespace cv;
@@ -42,19 +19,15 @@ using namespace cv;
 
 class CK4Wv2OpenCVModule
 {
-	// Sensor frame data values
-	// Color frame resolution
-
-
-
-
 
 public:
 	static const int COLOR_FRAME_WIDTH = 1920;
 	static const int COLOR_FRAME_HEIGHT = 1080;
+
 	// Depth frame resolution
 	static const int DEPTH_FRAME_WIDTH = 512;
 	static const int DEPTH_FRAME_HEIGHT = 424;
+
 	// Infrared frame resolution
 	static const int INFRARED_FRAME_WIDTH = 512;
 	static const int INFRARED_FRAME_HEIGHT = 424;
@@ -62,7 +35,6 @@ public:
 	~CK4Wv2OpenCVModule();
 
 	HRESULT InitializeKinectDevice();
-
 
 	// Image frame Mat
 	Mat colorRAWFrameMat;
