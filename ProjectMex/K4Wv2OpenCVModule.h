@@ -38,6 +38,7 @@ public:
 	static const int INFRARED_FRAME_WIDTH = 512;
 	static const int INFRARED_FRAME_HEIGHT = 424;
 
+	CK4Wv2OpenCVModule() :CK4Wv2OpenCVModule(true, true, true){ }
 	CK4Wv2OpenCVModule(bool provideColor, bool provideBody, bool provideFace);
 	~CK4Wv2OpenCVModule();
 
@@ -148,7 +149,7 @@ private:
 
 	// Release function
 	template< class T > void SafeRelease(T** ppT);
-*/
-};
 
+};
+*/
 #endif
