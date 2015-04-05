@@ -2,12 +2,12 @@
 #include "class_handle.hpp"
 #include "K4Wv2OpenCVModule.h"
 // The class that we are interfacing to
-static int initialized = 0;
 static mxArray *persistent_array_ptr = NULL;
 
 void exitFcn() {
 	if (persistent_array_ptr != NULL)
 		mxFree(persistent_array_ptr);
+
 }
 
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
@@ -75,12 +75,12 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 			mexErrMsgTxt("GrabDepth: Unexpected arguments.");
 		// Call the method
 		
-		if (!initialized) {
+		if (persistent_array_ptr==NULL) {
 			mexPrintf("MEX-file initializing, creating array\n");
 			persistent_array_ptr = mxCreateNumericMatrix(dummy_instance->DEPTH_FRAME_WIDTH, dummy_instance->DEPTH_FRAME_HEIGHT, mxUINT16_CLASS, mxREAL);
 			mexMakeArrayPersistent(persistent_array_ptr);
 			mexAtExit(exitFcn);
-			initialized = 1;
+
 		}
 		plhs[0] = persistent_array_ptr;
 		UINT16 *dynamicData = (UINT16*)mxGetPr(plhs[0]);
