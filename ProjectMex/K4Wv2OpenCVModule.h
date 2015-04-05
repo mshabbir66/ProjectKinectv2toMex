@@ -53,6 +53,8 @@ public:
 
 	// Process frame
 	void UpdateData(UINT16 *dynamicData);
+
+	void UpdateData();
 	INT64 GetTimeStamp();
 	void ExtractFaceRotationInDegrees(const Vector4* pQuaternion, float* pPitch, float* pYaw, float* pRoll);
 	Point2f CK4Wv2OpenCVModule::BodyToScreen(const CameraSpacePoint& bodyPoint);
@@ -60,7 +62,7 @@ public:
 	// Calculate Mapped Frame
 	ICoordinateMapper*      m_pCoordinateMapper;
 
-	int* facialAnimationParametersBuffer;
+	UINT16* facialAnimationParametersBuffer;
 
 	//ushort* pDepthRAWBuffer;
 	//ushort* pInfraRAWBuffer;

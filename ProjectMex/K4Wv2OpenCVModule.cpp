@@ -57,8 +57,8 @@ timeStamp(0)
 
 	if (provideFace)
 	{
-		facialAnimationParametersBuffer = new int[FaceProperty::FaceProperty_Count];
-		memset(facialAnimationParametersBuffer, 0, (FaceProperty::FaceProperty_Count) * sizeof(int));
+		facialAnimationParametersBuffer = new UINT16[FaceProperty::FaceProperty_Count];
+		memset(facialAnimationParametersBuffer, 0, (FaceProperty::FaceProperty_Count) * sizeof(UINT16));
 		//facialAnimationParameters = Mat(Size((FaceProperty::FaceProperty_Count), 1), CV_32F, (void*)facialAnimationParametersBuffer);
 	}
 
@@ -164,6 +164,12 @@ HRESULT CK4Wv2OpenCVModule::InitializeKinectDevice()
 }
 
 void CK4Wv2OpenCVModule::UpdateData(UINT16 *dynamicData)
+{
+	UpdateData();
+	memcpy(dynamicData, facialAnimationParametersBuffer, (FaceProperty::FaceProperty_Count) * sizeof(UINT16));
+
+}
+void CK4Wv2OpenCVModule::UpdateData()
 {
 	if (!pMultiSourceFrameReader)
 		return;
@@ -285,7 +291,7 @@ void CK4Wv2OpenCVModule::ProcessFaces(IBody** ppBodies){
 					hr = pFaceFrameResult->GetFaceProperties(FaceProperty::FaceProperty_Count, faceProperties);
 					for (int i = 0; i < FaceProperty::FaceProperty_Count; i++)
 					{
-						facialAnimationParametersBuffer[i] = (float)faceProperties[i];
+						facialAnimationParametersBuffer[i] = (int)faceProperties[i];
 						//std::cout << to_string(faceProperties[i]) << std::endl;
 					}
 				}
