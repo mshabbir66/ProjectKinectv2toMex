@@ -52,7 +52,7 @@ public:
 	bool bodyFlag = FALSE;
 
 	// Process frame
-	void UpdateData();
+	void UpdateData(UINT16 *dynamicData);
 	INT64 GetTimeStamp();
 	void ExtractFaceRotationInDegrees(const Vector4* pQuaternion, float* pPitch, float* pYaw, float* pRoll);
 	Point2f CK4Wv2OpenCVModule::BodyToScreen(const CameraSpacePoint& bodyPoint);
@@ -93,6 +93,8 @@ private:
 	void ProcessFaces(IBody** ppBodies);
 	void CK4Wv2OpenCVModule::ProcessBody(IBody** ppBodies);
 };
+
+#endif
 
 /*
 class CK4Wv2OpenCVModule
@@ -152,4 +154,4 @@ private:
 
 };
 */
-#endif
+
