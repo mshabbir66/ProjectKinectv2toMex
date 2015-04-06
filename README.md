@@ -2,7 +2,7 @@
 Compiler
   Visual Studio 2013 Community Edition
 
-Dependencies (Currently working are mentioned below, other versions may be compatibale but need to be tested)
+Dependencies (Currently working ones are mentioned below, other versions may be compatibale but need to be tested)
   1. OpenCV 2.4.10
   2. Matlab 2014b
   
