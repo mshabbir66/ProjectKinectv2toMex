@@ -14,16 +14,16 @@ classdef class_interface < handle
             ProjectMex('delete', this.objectHandle);
         end
 
-        %% InitializeKinectDevice - an example class method call
+        %% InitializeKinectDevice
         function varargout = InitializeKinectDevice(this, varargin)
             [varargout{1:nargout}] = ProjectMex('InitializeKinectDevice', this.objectHandle, varargin{:});
         end
 
-        %% UpdateData - another example class method call
+        %% UpdateData
         function varargout = UpdateData(this, varargin)
             [varargout{1:nargout}] = ProjectMex('UpdateData', this.objectHandle, varargin{:});
         end
-		%% GrabDepth - another example class method call
+		%% GrabDepth
         function varargout = GrabDepth(this, varargin)
             [varargout{1:nargout}] = ProjectMex('GrabDepth', this.objectHandle, varargin{:});
         end

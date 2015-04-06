@@ -86,15 +86,6 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 		UINT16 *dynamicData = (UINT16*)mxGetPr(plhs[0]);
 		int nop = dummy_instance->DEPTH_FRAME_HEIGHT* dummy_instance->DEPTH_FRAME_WIDTH;
 		dummy_instance->UpdateData(dynamicData);
-		//memcpy(dynamicData, dummy_instance->pDepthRAWBuffer, nop*sizeof(UINT16));
-
-		//int nop = dummy_instance->DEPTH_FRAME_HEIGHT* dummy_instance->DEPTH_FRAME_WIDTH;
-		//UINT16 *dynamicData = (UINT16*)mxCalloc(nop, sizeof(UINT16));		
-		//memcpy(dynamicData, dummy_instance->pDepthRAWBuffer,nop*sizeof(UINT16));
-		//plhs[0] = mxCreateNumericMatrix(0, 0, mxUINT16_CLASS, mxREAL);
-		//mxSetData(plhs[0], dynamicData);
-		//mxSetM(plhs[0], dummy_instance->DEPTH_FRAME_WIDTH);
-		//mxSetN(plhs[0], dummy_instance->DEPTH_FRAME_HEIGHT);
 
 		return;
 	}
