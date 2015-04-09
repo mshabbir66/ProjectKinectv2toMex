@@ -24,7 +24,7 @@
       <Command>xcopy "$(KINECTSDK20_DIR)Redist\Face\x64\NuiDatabase" "$(TargetDir)NuiDatabase" /e /y /i /r
 xcopy "$(KINECTSDK20_DIR)Redist\Face\x64\Kinect20.Face.dll" "$(TargetDir)" /c /y
 xcopy "$(SolutionDir)ProjectMex\class_interface.m" "$(TargetDir)" /c /y
-</Command>
+xcopy "$(SolutionDir)ProjectMex\test_run.m" "$(TargetDir)" /c /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup />

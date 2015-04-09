@@ -40,18 +40,18 @@ timeStamp(0)
 	}
 
 	// Allocate buffers
-	pColorRAWBuffer = new RGBQUAD[COLOR_FRAME_WIDTH * COLOR_FRAME_HEIGHT];
+	//pColorRAWBuffer = new RGBQUAD[COLOR_FRAME_WIDTH * COLOR_FRAME_HEIGHT];
 	//pDepthRAWBuffer = new ushort[DEPTH_FRAME_WIDTH * DEPTH_FRAME_HEIGHT];
 	//pInfraRAWBuffer = new ushort[INFRARED_FRAME_WIDTH * INFRARED_FRAME_HEIGHT];
 
 
 	// Set 0
-	memset(pColorRAWBuffer, 0, COLOR_FRAME_WIDTH * COLOR_FRAME_HEIGHT * sizeof(RGBQUAD));
+	//memset(pColorRAWBuffer, 0, COLOR_FRAME_WIDTH * COLOR_FRAME_HEIGHT * sizeof(RGBQUAD));
 	//memset( pColorRAWBuffer, 0, DEPTH_FRAME_WIDTH * DEPTH_FRAME_HEIGHT * sizeof( ushort ) );
 	//memset( pColorRAWBuffer, 0, INFRARED_FRAME_WIDTH * INFRARED_FRAME_HEIGHT * sizeof( ushort ) );
 
 	// Set Mat
-	colorRAWFrameMat = Mat(Size(COLOR_FRAME_WIDTH, COLOR_FRAME_HEIGHT), CV_8UC4, (void*)pColorRAWBuffer);
+	//colorRAWFrameMat = Mat(Size(COLOR_FRAME_WIDTH, COLOR_FRAME_HEIGHT), CV_8UC4, (void*)pColorRAWBuffer);
 	//depthRAWFrameMat = Mat( Size( DEPTH_FRAME_WIDTH, DEPTH_FRAME_HEIGHT ), CV_16UC1, (void*)pDepthRAWBuffer );
 	//infraRAWFrameMat = Mat( Size( INFRARED_FRAME_WIDTH, INFRARED_FRAME_HEIGHT ), CV_16UC1, (void*)pInfraRAWBuffer );
 
@@ -208,7 +208,7 @@ void CK4Wv2OpenCVModule::UpdateData()
 			if (SUCCEEDED(hrColor))
 			{
 				unsigned int colorBufferSize = COLOR_FRAME_WIDTH * COLOR_FRAME_HEIGHT * sizeof(RGBQUAD);
-				hr = pColorFrame->CopyConvertedFrameDataToArray(colorBufferSize, reinterpret_cast<BYTE*>(pColorRAWBuffer), ColorImageFormat_Bgra);
+				//hr = pColorFrame->CopyConvertedFrameDataToArray(colorBufferSize, reinterpret_cast<BYTE*>(pColorRAWBuffer), ColorImageFormat_Bgra);
 
 			}
 		}
