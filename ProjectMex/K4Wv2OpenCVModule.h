@@ -73,6 +73,8 @@ private:
 
 
 
+	IAudioBeamFrameReader*  m_pAudioBeamFrameReader;
+	WAITABLE_HANDLE         m_hFrameArrivedEvent;
 
 	// Frame reader
 	IMultiSourceFrameReader* pMultiSourceFrameReader;

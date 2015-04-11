@@ -1,4 +1,5 @@
 #include "K4Wv2OpenCVModule.h"
+#include "mex.h"
 
 // Log tag
 static const string TAG = "[K4WOCV]";
@@ -121,6 +122,8 @@ HRESULT CK4Wv2OpenCVModule::InitializeKinectDevice()
 				frameFlg |= FrameSourceTypes_Color;
 			if (provideBody)
 				frameFlg |= FrameSourceTypes_Body;
+			
+
 			//frameFlg = FrameSourceTypes_Infrared | FrameSourceTypes_Color | FrameSourceTypes_Depth | FrameSourceTypes_Body;
 
 			hr = pSensor->OpenMultiSourceFrameReader(frameFlg, &pMultiSourceFrameReader);
@@ -151,6 +154,19 @@ HRESULT CK4Wv2OpenCVModule::InitializeKinectDevice()
 					hr = m_pHDFaceFrameSources[i]->OpenReader(&m_pHDFaceFrameReaders[i]);
 				}
 			}
+		}
+
+		//
+		IAudioSource* pAudioSource = NULL;
+
+		if (SUCCEEDED(hr))
+		{
+			hr = pSensor->get_AudioSource(&pAudioSource);
+
+		}
+		if (SUCCEEDED(hr))
+		{
+			hr = pAudioSource->OpenReader(&m_pAudioBeamFrameReader);
 		}
 	}
 
@@ -215,6 +231,9 @@ void CK4Wv2OpenCVModule::UpdateData()
 
 		SafeRelease(&pColorFrameReference);
 
+		//
+		//
+
 		if (provideBody || provideFace)
 		{
 
@@ -252,6 +271,59 @@ void CK4Wv2OpenCVModule::UpdateData()
 		SafeRelease(&pColorFrame);
 		SafeRelease(&pBodyFrame);
 		SafeRelease(&pMultiSourceFrame);
+
+		IAudioBeamFrameArrivedEventArgs* pAudioBeamFrameArrivedEventArgs = NULL;
+		IAudioBeamFrameReference* pAudioBeamFrameReference = NULL;
+		IAudioBeamFrameList* pAudioBeamFrameList = NULL;
+		IAudioBeamFrame* pAudioBeamFrame = NULL;
+		UINT32 subFrameCount = 0;
+
+		hr = m_pAudioBeamFrameReader->GetFrameArrivedEventData(m_hFrameArrivedEvent, &pAudioBeamFrameArrivedEventArgs);
+
+		if (SUCCEEDED(hr))
+		{
+			hr = pAudioBeamFrameArrivedEventArgs->get_FrameReference(&pAudioBeamFrameReference);
+		}
+
+		if (SUCCEEDED(hr))
+		{
+			hr = pAudioBeamFrameReference->AcquireBeamFrames(&pAudioBeamFrameList);
+		}
+
+		if (SUCCEEDED(hr))
+		{
+			// Only one audio beam is currently supported
+			hr = pAudioBeamFrameList->OpenAudioBeamFrame(0, &pAudioBeamFrame);
+		}
+
+		if (SUCCEEDED(hr))
+		{
+			hr = pAudioBeamFrame->get_SubFrameCount(&subFrameCount);
+		}
+
+		if (SUCCEEDED(hr) && subFrameCount > 0)
+		{
+			for (UINT32 i = 0; i < subFrameCount; i++)
+			{
+				// Process all subframes
+				IAudioBeamSubFrame* pAudioBeamSubFrame = NULL;
+
+				hr = pAudioBeamFrame->GetSubFrame(i, &pAudioBeamSubFrame);
+
+				if (SUCCEEDED(hr))
+				{
+					//ProcessAudio(pAudioBeamSubFrame);
+					mexPrintf("Success\n");
+				}
+
+				SafeRelease(&pAudioBeamSubFrame);
+			}
+		}
+
+		SafeRelease(&pAudioBeamFrame);
+		SafeRelease(&pAudioBeamFrameList);
+		SafeRelease(&pAudioBeamFrameReference);
+		SafeRelease(&pAudioBeamFrameArrivedEventArgs);
 
 	}
 }
