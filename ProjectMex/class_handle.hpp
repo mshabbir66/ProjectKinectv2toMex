@@ -47,7 +47,7 @@ template<class base> inline base *convertMat2Ptr(const mxArray *in)
 template<class base> inline void destroyObject(const mxArray *in)
 {
     delete convertMat2HandlePtr<base>(in);
-    //mexUnlock();
+    mexUnlock();
 }
 
 #endif // __CLASS_HANDLE_HPP__
