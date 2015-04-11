@@ -2,13 +2,6 @@
 #include "class_handle.hpp"
 #include "K4Wv2OpenCVModule.h"
 // The class that we are interfacing to
-static mxArray *persistent_array_ptr = NULL;
-
-void exitFcn() {
-	if (persistent_array_ptr != NULL)
-		mxFree(persistent_array_ptr);
-
-}
 
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {	
@@ -75,26 +68,12 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 			mexErrMsgTxt("GrabDepth: Unexpected arguments.");
 		// Call the method
 		
-		if (persistent_array_ptr==NULL) {
-			mexPrintf("MEX-file initializing, creating array\n");
-			persistent_array_ptr = mxCreateNumericMatrix(1,8, mxUINT16_CLASS, mxREAL);
-			mexMakeArrayPersistent(persistent_array_ptr);
-			mexAtExit(exitFcn);
 
-		}
-		plhs[0] = persistent_array_ptr;
+		plhs[0] = mxCreateNumericMatrix(1, 8, mxUINT16_CLASS, mxREAL);
 		UINT16 *dynamicData = (UINT16*)mxGetPr(plhs[0]);
 		int nop = dummy_instance->DEPTH_FRAME_HEIGHT* dummy_instance->DEPTH_FRAME_WIDTH;
 		dummy_instance->UpdateData(dynamicData);
-		//memcpy(dynamicData, dummy_instance->pDepthRAWBuffer, nop*sizeof(UINT16));
 
-		//int nop = dummy_instance->DEPTH_FRAME_HEIGHT* dummy_instance->DEPTH_FRAME_WIDTH;
-		//UINT16 *dynamicData = (UINT16*)mxCalloc(nop, sizeof(UINT16));		
-		//memcpy(dynamicData, dummy_instance->pDepthRAWBuffer,nop*sizeof(UINT16));
-		//plhs[0] = mxCreateNumericMatrix(0, 0, mxUINT16_CLASS, mxREAL);
-		//mxSetData(plhs[0], dynamicData);
-		//mxSetM(plhs[0], dummy_instance->DEPTH_FRAME_WIDTH);
-		//mxSetN(plhs[0], dummy_instance->DEPTH_FRAME_HEIGHT);
 
 		return;
 	}
